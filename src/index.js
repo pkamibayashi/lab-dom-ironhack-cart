@@ -23,11 +23,13 @@ function calculateAll() {
 // ITERATION 4
 
 function removeProduct(event) {
-  const target = event.currentTarget;
-  const parent = target.parentNode.parentNode;
-  console.log(parent);
-  if (parent.parentNode.removeChild(parent)) {
-  }
+  let target = event.currentTarget;
+  console.log(target);
+  let parent = target.parentNode.parentNode;
+  let subTotal = parent.childNodes[7];
+  let subTotalPrice = subTotal.innerText;
+  parent.parentNode.removeChild(parent);
+  calculateAll() = subTotalPrice -= calculateAll;
 }
 
 // ITERATION 5
