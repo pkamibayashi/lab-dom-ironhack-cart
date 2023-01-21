@@ -26,6 +26,7 @@ function removeProduct(event) {
   let target = event.currentTarget;
   console.log(target);
   let fatherNode = target.parentNode.parentNode;
+  const pai = document.querySelectorAll(".product");
 
   let priceElement = fatherNode.querySelector(".subtotal span");
   let totalElement = document.getElementById("Subtotal");
@@ -33,34 +34,35 @@ function removeProduct(event) {
   let priceNumber = Number(priceElement.innerText);
   let totalNumber = Number(totalElement.innerText);
   totalElement.innerText = totalNumber -= priceNumber;
-  fatherNode.parentNode.removeChild(fatherNode);
+  if (pai.length > 1) {
+    fatherNode.parentNode.removeChild(fatherNode);
+  }
 }
 
 // ITERATION 5
 
 function createProduct() {
-  // let productNameField = document.getElementById('productName').value
-  // const setPrice = document.getElementById('setPrice').value
-  // const productsRoll = document.querySelector('.product')
-  // const clone = productsRoll.cloneNode(true)
-  // console.log(clone)
-  // const newProductPrice = document.querySelector('.price span')
-  // const newProductName = document.querySelector('.name span')
-  // newProductName.innerText = productNameField
-  // newProductPrice.innerText= setPrice
-  // const tbody = document.getElementById('produtos')
-  // tbody.insertAdjacentElement("beforeend", clone)
+  const productName = document.getElementById("productName").value;
+  const setPriceValue = document.getElementById("setPrice").value;
+  const setQty = document.getElementById("quantity").value;
+  const tr = document.querySelectorAll(".product");
+  const pai = document.getElementById("produtos");
+  const newClone = tr[0].cloneNode(true);
+  newClone.children[0].innerText = productName;
+  newClone.children[1].children[0].innerText = setPriceValue;
+  // newClone.children[2].children[0].value = setQty;
+  pai.insertAdjacentElement("afterbegin", newClone);
+  const removeBtn = newClone.querySelectorAll(".btn-remove");
+  removeBtn.forEach((el) => el.addEventListener("click", removeProduct));
 }
 
 window.addEventListener("load", () => {
-  createProduct();
   const calculatePricesBtn = document.getElementById("calculate");
   calculatePricesBtn.addEventListener("click", calculateAll);
   const removeBtn = document.querySelectorAll(".btn-remove ");
   const createBtn = document.getElementById("create");
   console.log(removeBtn);
+
+  removeBtn.forEach((el) => el.addEventListener("click", removeProduct));
   createBtn.addEventListener("click", createProduct);
-  for (let i = 0; i < removeBtn.length; i++) {
-    removeBtn[i].addEventListener("click", removeProduct);
-  }
 });
